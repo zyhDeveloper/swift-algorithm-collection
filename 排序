@@ -1,0 +1,115 @@
+/*冒泡排序*/
+    func arraySort1(_ arr:[Int])->[Int]{
+        var array = arr
+        for i in 0 ..< array.count - 1{
+            for j in 0 ..< array.count - 1 - i {
+                if array[j] > array[j+1] {
+                    let temp = array[j]
+                    array[j] = array[j+1]
+                    array[j+1] = temp
+                }
+            }
+        }
+       return array
+    }
+
+    /*选择排序*/
+    func arraySort2(_ arr:[Int]) -> [Int] {
+        var array = arr
+        for i in 0 ..< array.count - 1 {
+            var min = i
+            for j in (i+1) ..< array.count{
+                if array[j] < array[min] {
+                    min = j
+                }
+            }
+            if i != min {
+                let temp = array[i]
+                array[i] = array[min]
+                array[min] = temp
+            }
+        }
+        return array
+    }
+    
+    /*插入排序*/
+    func arraySort3(_ arr:[Int]) -> [Int] {
+        var array = arr
+        for i in 1 ..< array.count {
+            var j = i
+            while j > 0 && array[j] < array[j-1] {
+                let temp = array[j]
+                array[j] = array[j-1]
+                array[j-1] = temp
+                j -= 1
+            }
+        }
+        return array
+    }
+    
+    /*希尔排序*/
+    func arraySort4(_ arr:[Int]) -> [Int] {
+        var array = arr
+        var k = arr.count/2
+        while k > 0 {
+            for i in k ..< array.count {
+                var j = i - k
+                while j >= 0 {
+                    if array[j] > array[j+k] {
+                        let temp = array[j]
+                        array[j] = array[j+k]
+                        array[j+k] = temp
+                    }
+                    j -= k
+                }
+            }
+            k /= 2
+        }
+        return array
+    }
+    
+    /*归并排序*/
+    func arraySort5(_ arr:[Int]) -> [Int] {
+        var tempArr:[Array<Int>] = []
+        for item in arr {
+            var subArr = [Int]()
+            subArr.append(item)
+            tempArr.append(subArr)
+        }
+        
+        while tempArr.count != 1 {
+            var i = 0
+            while i < tempArr.count - 1 {
+                tempArr[i] = mergeArrar(tempArr[i], tempArr[i+1])
+                tempArr.remove(at: i + 1)
+                i += 1
+            }
+        }
+        return tempArr.first!
+    }
+    
+    func mergeArrar(_ arr1:[Int], _ arr2:[Int]) -> [Int] {
+        var resultArr:[Int] = []
+        var firstIndex = 0
+        var secondIndex = 0
+        while firstIndex < arr1.count && secondIndex < arr2.count {
+            if arr1[firstIndex] < arr2[secondIndex] {
+                resultArr.append(arr1[firstIndex])
+                firstIndex += 1
+            }else{
+                resultArr.append(arr2[secondIndex])
+                secondIndex += 1
+            }
+        }
+        
+        while firstIndex < arr1.count {
+            resultArr.append(arr1[firstIndex])
+            firstIndex += 1
+        }
+        
+        while secondIndex < arr2.count {
+            resultArr.append(arr2[secondIndex])
+            secondIndex += 1
+        }
+        return resultArr
+    }
