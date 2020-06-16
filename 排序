@@ -113,3 +113,25 @@
         }
         return resultArr
     }
+
+   /*快速排序*/
+   func position(_ arr: inout [Int],_ start: Int,_ end: Int) -> Int {
+        let tag = arr[end]
+        var i = start
+        for j in start ..< end {
+            if arr[j] <= tag {
+                arr.swapAt(i, j)
+                i += 1
+            }
+        }
+        arr.swapAt(i, end)
+        return i
+    }
+
+    func quickSort(_ arr: inout [Int], _ start: Int,_ end: Int) {
+        if start < end {
+            let p = position(&arr, start, end)
+            quickSort(&arr, start, p - 1)
+            quickSort(&arr, p + 1, end)
+        }
+    }
