@@ -135,3 +135,42 @@
             quickSort(&arr, p + 1, end)
         }
     }
+    
+    /*堆排序*/
+    func sortArr(_ array:inout [Int]) {
+        //1.构建大顶堆
+        var i = array.count/2-1
+        while i >= 0 {
+            //从第一个非叶子结点从下至上，从右至左调整结构
+            adjustArray(&array, i, array.count)
+            i -= 1
+        }
+        
+        //2.调整堆结构+交换堆顶元素与末尾元素
+        var j = array.count - 1
+        while j > 0 {
+            array.swapAt(0, j)
+            adjustArray(&array, 0, j)
+            j -= 1
+        }
+    }
+    
+    func adjustArray(_ array:inout [Int],_ i:Int,_ length:Int) {
+        let temp = array[i]
+        //从i结点的左子结点开始，也就是2i+1处开始
+        var k = 2 * i + 1
+        var i = i
+        while k < length {
+            //如果左子结点小于右子结点，k指向右子结点
+            if k+1 < length && array[k]<array[k+1]  {
+                k += 1
+            }
+            //如果子节点大于父节点，将子节点值赋给父节点
+            if array[k] > temp {
+                array[i] = array[k]
+                i = k
+            }
+            k = 2 * k + 1
+        }
+        array[i] = temp
+    }
