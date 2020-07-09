@@ -1,4 +1,4 @@
-/*冒泡排序*/
+    /*冒泡排序*/
     func arraySort1(_ arr:[Int])->[Int]{
         var array = arr
         for i in 0 ..< array.count - 1{
@@ -173,4 +173,22 @@
             k = 2 * k + 1
         }
         array[i] = temp
+    }
+
+   /*基数排序*/
+   func sortArray(_ array:inout [Int],_ count:Int,_ max:Int)->[Int] {
+        var countArr = Array(repeating: 0, count: max+1)
+        var resultArr = Array(repeating: 0, count: count)
+        for i in 0 ..< array.count {
+            countArr[array[i]] += 1
+        }
+        var k = 0
+        for j in 0 ..< countArr.count {
+            while countArr[j] > 0 {
+                resultArr[k] = j
+                countArr[j] -= 1
+                k += 1
+             }
+        }
+        return resultArr
     }
