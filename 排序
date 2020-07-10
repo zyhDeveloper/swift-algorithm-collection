@@ -176,9 +176,9 @@
     }
 
    /*基数排序*/
-   func sortArray(_ array:inout [Int],_ count:Int,_ max:Int)->[Int] {
-        var countArr = Array(repeating: 0, count: max+1)
-        var resultArr = Array(repeating: 0, count: count)
+   func sortArray(_ array:inout [Int])->[Int] {
+        var countArr = Array(repeating: 0, count: array.max()!+1)
+        var resultArr = Array(repeating: 0, count: array.count)
         for i in 0 ..< array.count {
             countArr[array[i]] += 1
         }
@@ -191,4 +191,38 @@
              }
         }
         return resultArr
+    }
+
+   /*桶排序*/
+   func sortArray(_ array:inout [Int],_ gap:Int)->[Int] {
+        // 1.建桶
+        var bucketList = Array(repeating:[Int](), count: (array.max()!-array.min()!)/gap + 1)
+        
+        // 2.遍历数组，将元素放入桶里
+        for i in 0 ..< array.count {
+            let index = (array[i] - array.min()!)/gap
+            bucketList[index].append(array[i])
+        }
+        // 3.对每个桶内部排序
+        for i in 0 ..< (array.max()!-array.min()!)/gap + 1 {
+            //判断桶是否为空
+            if bucketList[i].count > 0 {
+                for x in 0 ..< bucketList[i].count - 1 {
+                    for y in 0 ..< bucketList[i].count - 1 - x {
+                        if bucketList[i][y] > bucketList[i][y+1] {
+                            bucketList[i].swapAt(y, y+1)
+                        }
+                    }
+                }
+            }
+        }
+        // 4.取出桶内元素
+        var arr:[Int] = []
+        for i in 0 ..< (array.max()!-array.min()!)/gap + 1 {
+            let bucket:[Int] = bucketList[i]
+            if bucket.count > 0 {
+                arr += bucket
+            }
+        }
+        return arr
     }
