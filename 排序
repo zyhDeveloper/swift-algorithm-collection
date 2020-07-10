@@ -226,3 +226,39 @@
         }
         return arr
     }
+    
+    /*基数排序*/
+     func sortArray(_ array:inout [Int],_ count:Int) {
+        var tempArr:[Array<Int>] = [[Int]]()
+        //1.创建10个容器
+        for _ in 0 ..< 10 {
+            tempArr.append(Array(repeating: 0, count: count+1))
+        }
+        //2.遍历数组放入容器
+        let keyNum = 3 //最大数字的位数
+        for i in 1 ... keyNum {//分配
+            for j in 0 ..< count {
+                let num = getNum(array[j], i)
+                tempArr[num][0] += 1
+                let index = tempArr[num][0]
+                tempArr[num][index] = array[j]
+            }
+            var k = 0
+            for x in 0 ..< 10 {//取出
+                if tempArr[x][0] != 0 {
+                    for n in 1 ... tempArr[x][0] {
+                        array[k] = tempArr[x][n]
+                        k += 1
+                    }
+                tempArr[x][0] = 0
+                }
+            }
+       }
+    }
+    func getNum(_ num:Int,_ tag:Int) -> Int {
+        var temp = 1
+        for _ in 0 ..< tag - 1 {
+            temp *= 10
+        }
+        return (num/temp)%10
+    }
