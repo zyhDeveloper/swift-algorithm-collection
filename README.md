@@ -10,7 +10,7 @@
  
 归并排序     O(nlogn)     O(nlogn)    O(nlogn)   O(n)      Out-place     稳定
 
-快速排序     O(nlogn)     O(nlogn)    O(n²)      O(logn)   In-place     不稳定
+快速排序     O(nlogn)     O(nlogn)    O(n²)      O(logn)   In-place      不稳定
   
 堆排序       O(nlogn)     O(nlogn)    O(nlogn)   O(1)      In-place     不稳定
 
