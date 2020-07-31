@@ -175,7 +175,7 @@
         array[i] = temp
     }
 
-   /*基数排序*/
+   /*计数排序*/
    func sortArray(_ array:inout [Int])->[Int] {
         var countArr = Array(repeating: 0, count: array.max()!+1)
         var resultArr = Array(repeating: 0, count: array.count)
